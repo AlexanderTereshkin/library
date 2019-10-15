@@ -35,7 +35,7 @@
 </div>
 <center>
     <h2>
-        <a href="new_book">Add New Book</a>
+        <a href="new-book">Add New Book</a>
     </h2>
 </center>
 </body>

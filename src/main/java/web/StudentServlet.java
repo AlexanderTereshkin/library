@@ -53,11 +53,14 @@ public class StudentServlet extends HttpServlet {
                 case "/update":
                     updateStudent(request, response);
                     break;
+                case "/new-book":
+                    showNewFormBook(request, response);
+                    break;
+                case "/insert-book":
+                    insertBook(request, response);
+                    break;
                 case "/books":
                     listOfBooks(request, response);
-                    break;
-                case "/new_book":
-                    insertBook(request, response);
                     break;
                 default:
                     listOfStudents(request, response);
@@ -87,6 +90,12 @@ public class StudentServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("student-form.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void showNewFormBook(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("book-form.jsp");
         dispatcher.forward(request, response);
     }
 
