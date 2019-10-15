@@ -1,5 +1,6 @@
 Library Management Application
 This is study project allows users create base of students (users of library) and control which student take some book.
+For build this project used Maven, Hibernate, JSP and Tomcat Server for browse in localhost.
 
 Now user of this app can:
 - add, edit, delete students
