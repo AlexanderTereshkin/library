@@ -1,0 +1,6 @@
+# Project exclude paths
+# IntellijIdea files
+*.iml
+.idea
+/lib/
+/target/
