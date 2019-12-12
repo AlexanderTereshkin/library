@@ -7,6 +7,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <!--jdbc:h2:mem:testdb-->
+        <!--jdbc:h2:mem:testdb-->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/librarydb?serverTimezone=UTC</property>
         <property name="hibernate.connection.username">non-root</property>
