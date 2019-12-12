@@ -1,24 +1,27 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_generator")
+    @SequenceGenerator(name = "c_generator", sequenceName = "SEQUENCE_ID_STUDENT")
+    @Column(name = "student_id")
     private int id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "age")
     private int age;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    private List<Book> bookList = new ArrayList<>();
 
     public Student() {
     }
@@ -38,6 +41,10 @@ public class Student {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -62,6 +69,14 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     public int compareTo(Student anotherStudent) {

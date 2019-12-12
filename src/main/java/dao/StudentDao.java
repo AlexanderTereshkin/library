@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.Session;
 import utils.HibernateSessionFactoryUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -117,13 +118,13 @@ public class StudentDao {
     public List<Student> getAllStudents() {
 
         Transaction transaction = null;
-        List < Student > listOfStudents = null;
+        List < Student > listOfStudents = new ArrayList<>();
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // get an student object
 
-            listOfStudents = session.createQuery("From Student").getResultList();
+            // get student objects
+            listOfStudents = session.createQuery("FROM STUDENT").getResultList();
 
             Collections.sort(listOfStudents, new Comparator<Student>() {
                 @Override

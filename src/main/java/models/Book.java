@@ -7,18 +7,17 @@ import javax.persistence.*;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_book")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_generator")
+    @SequenceGenerator(name = "c_generator", sequenceName = "SEQUENCE_ID_BOOK")
+    @Column(name = "book_id")
     private int id;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "author")
     private String author;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "id_student")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn (name = "student_id", nullable = false)
     private Student student;
 
     public Book() {

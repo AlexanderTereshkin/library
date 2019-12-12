@@ -1,11 +1,11 @@
 package dao;
 
 import models.Book;
-import models.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -40,13 +40,13 @@ public class BookDao {
     public List<Book> getAllBooks() {
 
         Transaction transaction = null;
-        List < Book > listOfBooks = null;
+        List < Book > listOfBooks = new ArrayList<>();
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // get an student object
 
-            listOfBooks = session.createQuery("From Book").getResultList();
+            listOfBooks = session.createQuery("FROM BOOK").getResultList();
 
             Collections.sort(listOfBooks, new Comparator<Book>() {
                 @Override
