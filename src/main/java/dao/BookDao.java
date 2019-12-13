@@ -40,20 +40,14 @@ public class BookDao {
     public List<Book> getAllBooks() {
 
         Transaction transaction = null;
-        List < Book > listOfBooks = new ArrayList<>();
+        List <Book> listOfBooks = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // get an student object
 
-            listOfBooks = session.createQuery("FROM BOOK").getResultList();
+            listOfBooks = session.createQuery("from Book").getResultList();
 
-            Collections.sort(listOfBooks, new Comparator<Book>() {
-                @Override
-                public int compare(Book b1, Book b2) {
-                    return b1.compareTo(b2);
-                }
-            });
+            Collections.sort(listOfBooks, (b1, b2) -> b1.compareTo(b2));
 
             // commit transaction
             transaction.commit();

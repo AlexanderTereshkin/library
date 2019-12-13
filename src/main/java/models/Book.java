@@ -1,23 +1,28 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_generator")
-    @SequenceGenerator(name = "c_generator", sequenceName = "SEQUENCE_ID_BOOK")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "b_generator")
+    @SequenceGenerator(name = "b_generator", sequenceName = "SEQUENCE_ID_BOOK", allocationSize=1)
     @Column(name = "book_id")
     private int id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "author")
     private String author;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn (name = "student_id", nullable = false)
+    @JoinColumn (name = "student_id")
     private Student student;
 
     public Book() {
@@ -30,6 +35,10 @@ public class Book {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

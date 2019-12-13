@@ -1,26 +1,32 @@
 package models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_generator")
-    @SequenceGenerator(name = "c_generator", sequenceName = "SEQUENCE_ID_STUDENT")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_generator")
+    @SequenceGenerator(name = "s_generator", sequenceName = "SEQUENCE_ID_STUDENT", allocationSize=1)
     @Column(name = "student_id")
     private int id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "age")
     private int age;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> bookList = new ArrayList<>();
 
     public Student() {

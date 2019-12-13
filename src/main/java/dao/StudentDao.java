@@ -118,7 +118,7 @@ public class StudentDao {
     public List<Student> getAllStudents() {
 
         Transaction transaction = null;
-        List < Student > listOfStudents = new ArrayList<>();
+        List <Student> listOfStudents = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
@@ -126,12 +126,7 @@ public class StudentDao {
             // get student objects
             listOfStudents = session.createQuery("FROM STUDENT").getResultList();
 
-            Collections.sort(listOfStudents, new Comparator<Student>() {
-                @Override
-                public int compare(Student s1, Student s2) {
-                    return s1.compareTo(s2);
-                }
-            });
+            Collections.sort(listOfStudents, (s1, s2) -> s1.compareTo(s2));
 
             // commit transaction
             transaction.commit();
