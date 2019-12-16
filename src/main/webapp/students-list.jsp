@@ -9,8 +9,8 @@
 <center>
     <h1>Library Management</h1>
     <h2>
-        <a href="new">Add New Student</a>
-        <a href="list" style="margin-left: 40px">List All Students</a>
+        <a href="students/new">Add New Student</a>
+        <a href="students" style="margin-left: 40px">List All Students</a>
         <a href="books"style="margin-left: 40px">List All Books</a>
     </h2>
 </center>
@@ -31,9 +31,9 @@
                 <td><c:out value="${student.email}" /></td>
                 <td><c:out value="${student.age}" /></td>
                 <td>
-                    <a href="edit?id=<c:out value='${student.id}' />">Edit</a>
+                    <a href="students/edit?id=<c:out value='${student.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="delete?id=<c:out value='${student.id}' />">Delete</a>
+                    <a href="students/delete?id=<c:out value='${student.id}' />">Delete</a>
                 </td>
             </tr>
         </c:forEach>

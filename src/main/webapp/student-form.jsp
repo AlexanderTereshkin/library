@@ -9,17 +9,17 @@
 <center>
     <h1>Library Management</h1>
     <h2>
-        <a href="new">Add New Student</a>
-        <a href="list" style="margin-left: 40px">List All Students</a>
+        <a href="students/new">Add New Student</a>
+        <a href="students/list" style="margin-left: 40px">List All Students</a>
         <a href="books"style="margin-left: 40px">List All Books</a>
     </h2>
 </center>
 <div align="center">
     <c:if test="${student != null}">
-    <form action="update" method="post">
+    <form action="students/edit" method="post">
         </c:if>
         <c:if test="${student == null}">
-        <form action="insert" method="post">
+        <form action="students/save" method="post">
             </c:if>
             <table border="1" cellpadding="5">
                 <caption>

@@ -1,8 +1,6 @@
 package web;
 
-import dao.BookDao;
 import dao.StudentDao;
-import models.Book;
 import models.Student;
 
 import java.io.IOException;
@@ -16,15 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
+@WebServlet("/students")
 public class StudentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StudentDao studentDao;
-    private BookDao bookDao;
 
     public void init() {
         studentDao = new StudentDao();
-        bookDao = new BookDao();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +37,7 @@ public class StudentServlet extends HttpServlet {
                 case "/new":
                     showNewForm(request, response);
                     break;
-                case "/insert":
+                case "/save":
                     insertStudent(request, response);
                     break;
                 case "/delete":
@@ -50,33 +46,19 @@ public class StudentServlet extends HttpServlet {
                 case "/edit":
                     showEditForm(request, response);
                     break;
-                case "/update":
-                    updateStudent(request, response);
-                    break;
-                case "/new-book":
-                    showNewFormBook(request, response);
-                    break;
-                case "/insert-book":
-                    insertBook(request, response);
-                    break;
-                case "/books":
-                    listOfBooks(request, response);
-                    break;
-                default:
+                case "/list":
                     listOfStudents(request, response);
                     break;
+                /*case "student/update":
+                    updateStudent(request, response);
+                    break;*/
+                /*default:
+                    listOfStudents(request, response);
+                    break;*/
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
-    }
-
-    private void listOfBooks(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<Book> listOfBooks = bookDao.getAllBooks();
-        request.setAttribute("listOfBooks", listOfBooks);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("books-list.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void listOfStudents(HttpServletRequest request, HttpServletResponse response)
@@ -93,12 +75,6 @@ public class StudentServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showNewFormBook(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("book-form.jsp");
-        dispatcher.forward(request, response);
-    }
-
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -106,7 +82,6 @@ public class StudentServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("student-form.jsp");
         request.setAttribute("student", existingStudent);
         dispatcher.forward(request, response);
-
     }
 
     private void insertStudent(HttpServletRequest request, HttpServletResponse response)
@@ -116,19 +91,10 @@ public class StudentServlet extends HttpServlet {
         int age = Integer.parseInt(request.getParameter("age"));
         Student newStudent = new Student(name, email, age);
         studentDao.saveStudent(newStudent);
-        response.sendRedirect("list");
+        response.sendRedirect("students");
     }
 
-    private void insertBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String author = request.getParameter("author");
-        String title = request.getParameter("title");
-        Book newBook = new Book(author, title);
-        bookDao.saveBook(newBook);
-        response.sendRedirect("books");
-    }
-
-    private void updateStudent(HttpServletRequest request, HttpServletResponse response)
+    /*private void updateStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
@@ -138,12 +104,12 @@ public class StudentServlet extends HttpServlet {
         Student student = new Student(id, name, email, age);
         studentDao.updateStudent(student);
         response.sendRedirect("list");
-    }
+    }*/
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         studentDao.deleteStudent(id);
-        response.sendRedirect("list");
+        response.sendRedirect("students");
     }
 }

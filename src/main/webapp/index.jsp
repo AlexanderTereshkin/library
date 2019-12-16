@@ -14,9 +14,9 @@
 <center>
     <h1>Library Management</h1>
     <h2>
-        <a href="new">Add New Student</a>
-        <a href="list" style="margin-left: 40px">List All Students</a>
-        <a href="books"style="margin-left: 40px">List All Books</a>
+        <a href="students/new">Add New Student</a>
+        <a href="students/list" style="margin-left: 40px">List All Students</a>
+        <a href="books/list"style="margin-left: 40px">List All Books</a>
     </h2>
 </center>
 </body>

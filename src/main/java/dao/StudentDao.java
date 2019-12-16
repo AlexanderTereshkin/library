@@ -123,8 +123,7 @@ public class StudentDao {
             // start a transaction
             transaction = session.beginTransaction();
 
-            // get student objects
-            listOfStudents = session.createQuery("FROM STUDENT").getResultList();
+            listOfStudents = session.createQuery("from Student").getResultList();
 
             Collections.sort(listOfStudents, (s1, s2) -> s1.compareTo(s2));
 
